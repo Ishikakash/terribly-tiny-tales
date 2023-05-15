@@ -1,27 +1,36 @@
 
 import React, { useEffect, useState } from 'react'
+import axios from "axios";
+//import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
 const Api = () => {
 
-    const [text, setText] = useState('');
+    const [data, setData] = useState('');
     const [load, setLoad] = useState(false);
-    const [freq, setFreq] = useState([]);
 
-
-    const handleSubmit = async() => {
+    const dataFetch = async() => {
         setLoad(true);
 
-        try{
-            const res = await fetch('https://www.terriblytinytales.com/test.txt');
-            const data = await res.text();
-            setText(data);
+        try {
+            const api = await axios.get(
+              "https://www.terriblytinytales.com/test.txt"
+            );
 
-            const words = data.split(/\s+/);
-            const frequency = {};
-            words.forEach((word) => {
-                frequency[word] = (frequency[word] || 0) + 1;
-            })
-            setFreq(frequency);
+            const words = api.data
+            .trim()
+            .replace(/[^\w\s]/gi, "")
+            .toLowerCase()
+            .split(/\s+/)
+            .reduce(function (map, word) {
+              map[word] = (map[word] || 0) + 1;
+              return map;
+            }, {});
+
+            const dataSort = Object.entries(words)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 20)
+            .map(([word, count]) => ({ word, count }));
+            setData(dataSort);
 
         } catch (err) {
             console.log("fetching data", err);
