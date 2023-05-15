@@ -1,11 +1,11 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import axios from "axios";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
 const Api = () => {
 
-    const [data, setData] = useState('');
+    const [data, setData] = useState([]);
     const [load, setLoad] = useState(false);
 
     const dataFetch = async() => {
@@ -62,7 +62,7 @@ const Api = () => {
             </button></center><br/><br/>
             {data.length > 0 && (
             <div>
-            <center></center>
+            <center>
             <BarChart width={800} height={400} data={data}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="word" />
@@ -71,12 +71,38 @@ const Api = () => {
                 <Legend />
                 <Bar dataKey="count" fill="#FF647F" />
             </BarChart>
-          
+            <center> <br/>
+            <button onClick={dataExport} style={{backgroundColor:"#8A8AFF", margin: "8px 6px"}} >Export</button>
+            </center><br/>
+            </center>
         </div>
     )}
-   
     </div>
     );
 };
 
 export default Api;
+
+// => This code is going to fetch the text after clicking on submit button
+// import React, { useState } from "react";
+// function App() {
+
+//   const [chat, setChat] = useState("");
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     const res = await fetch("https://www.terriblytinytales.com/test.txt");
+//     const text = await res.text();
+//     setChat(text);
+//   };
+
+//   return (
+//     <div>
+//       <form onSubmit={handleSubmit}>
+//         <button type="submit">Submit</button>
+//       </form>
+//       <div><center>{chat}</center></div>
+//     </div>
+//   );
+// }
+
+// export default App;
