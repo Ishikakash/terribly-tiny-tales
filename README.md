@@ -1,6 +1,7 @@
 Details about the Components and Libraries used in the project.
 
 => The code provided a React component that fetches data from a URL, performs some word frequency calculations, and displays the results in a bar chart using the Recharts library. It also includes a button to export the data as a CSV file.
+
 => On submitting the button, it will show the bar chart and on exporting the button, it will export the data.
 
 The components used in the code:
@@ -25,7 +26,6 @@ The Libraries used in the code:
 
 => recharts: 
 
-BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend: These are components from the recharts library, which provides a set of charting components for React applications.
-                                                             These components are used to create a bar chart visualization in the UI.
+BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend: These are components from the recharts library, which provides a set of charting components for React applications. These components are used to create a bar chart visualization in the UI.
 
 Overall, the code uses React, axios, and Recharts libraries to create a React component that fetches data, performs calculations, and displays the results in a bar chart, with an option to export the data as a CSV file.
