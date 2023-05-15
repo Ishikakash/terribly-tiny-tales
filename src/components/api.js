@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
-//import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
 const Api = () => {
 
@@ -39,21 +39,42 @@ const Api = () => {
     }
 
 
+    const dataExport = () => {
+        const csv = "data:text/csv;charset=utf-8," + data.map((d) => `${d.word},${d.count}`).join("\n");
+        const encodedUri = encodeURI(csv);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "histogram_data.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+
     return (
         <div>
-            <button onClick={handleSubmit} disabled={load} >Submit</button>
-            {load?(<p>Loading...</p>):(
+            <h1 style={{color: "gray"}}><b><center>TERRIBLY {" "} 
+            <strong style={{color: "black"}}>TINY TALES </strong>
+                ASSIGNMENT
+            </center></b></h1>
+            <center>
+            <button onClick={dataFetch} disabled={load} style={{backgroundColor:"#8A8AFF", margin: "8px 6px"}}>
+                {load ? "Loading..." : "Submit"}
+            </button></center><br/><br/>
+            {data.length > 0 && (
             <div>
-            <pre>{text}</pre>
-            <ul>
-                {Object.entries(freq).map(([word, freq]) => (
-                    <li key={word}>
-                        {word}:{freq}
-                    </li>
-                ))}
-            </ul>
+            <center></center>
+            <BarChart width={800} height={400} data={data}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="word" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="count" fill="#FF647F" />
+            </BarChart>
+          
         </div>
     )}
+   
     </div>
     );
 };
